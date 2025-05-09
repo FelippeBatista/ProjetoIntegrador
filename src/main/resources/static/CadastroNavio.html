@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Sistema Portuário</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .login-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            max-width: 450px;
+            width: 100%;
+        }
+
+        .login-container h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #333;
+        }
+
+        .description {
+            font-size: 14px;
+            text-align: center;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            border-color: #0077cc;
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background-color: #0077cc;
+            color: white;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #005fa3;
+        }
+
+        .footer-text {
+            margin-top: 20px;
+            font-size: 13px;
+            text-align: center;
+            color: #777;
+        }
+
+        .logo {
+            display: block;
+            margin: 0 auto 20px;
+            width: 80px;
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                padding: 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <img src="https://cdn-icons-png.flaticon.com/512/1490/1490837.png" alt="Ícone Navio" class="logo">
+        <h2>Acesso ao Sistema Portuário</h2>
+        <p class="description">Faça login para gerenciar seus navios, cargas e informações da empresa.</p>
+
+        <form id="loginForm">
+            <label for="email">E-mail da empresa:</label>
+            <input type="text" id="email" name="email" placeholder="empresa@dominio.com" required>
+
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+
+            <button type="submit">Entrar</button>
+        </form>
+
+        <p class="footer-text">Ainda não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
+    </div>
+
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+
+            const dadosLogin = { email, senha };
+
+            console.log("Tentativa de login:", dadosLogin);
+
+            // Aqui você pode usar fetch() para enviar os dados ao backend
+            /*
+            fetch('/api/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dadosLogin)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.autenticado) {
+                    window.location.href = '/dashboard.html';
+                } else {
+                    alert("Email ou senha incorretos!");
+                }
+            })
+            .catch(err => console.error('Erro no login:', err));
+            */
+        });
+    </script>
+
+</body>
+</html>
