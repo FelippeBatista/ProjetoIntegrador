@@ -117,7 +117,7 @@
             <button type="submit">Entrar</button>
         </form>
 
-        <p class="footer-text">Ainda não tem conta? <a href="cadastro.html">Cadastre-se</a></p>
+        <p class="footer-text">Ainda não tem conta? <a href="CadastroEmpresa.html">Cadastre-se</a></p>
     </div>
 
     <script>
@@ -127,12 +127,20 @@
             const email = document.getElementById('email').value;
             const senha = document.getElementById('senha').value;
 
-            const dadosLogin = { email, senha };
+            // Verificação básica dos campos (opcional)
+            if (!email || !senha) {
+                alert("Por favor, preencha todos os campos!");
+                return;
+            }
 
+            // Redirecionamento para CadastroNavio.html
+            window.location.href = 'CadastroNavio.html';
+
+            /* 
+            // Código original para integração com backend (mantido como referência)
+            const dadosLogin = { email, senha };
             console.log("Tentativa de login:", dadosLogin);
 
-            // Aqui você pode usar fetch() para enviar os dados ao backend
-            /*
             fetch('/api/login', {
                 method: 'POST',
                 headers: {
@@ -143,7 +151,7 @@
             .then(res => res.json())
             .then(data => {
                 if (data.autenticado) {
-                    window.location.href = '/dashboard.html';
+                    window.location.href = 'CadastroNavio.html';
                 } else {
                     alert("Email ou senha incorretos!");
                 }

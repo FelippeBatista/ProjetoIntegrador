@@ -161,6 +161,11 @@
           document.getElementById("mensagemSucesso").style.display = "block";
           document.getElementById("mensagemErro").style.display = "none";
           document.getElementById("navioForm").reset();
+          
+          // Redireciona para CadastroCarga.html após 2 segundos
+          setTimeout(() => {
+            window.location.href = 'CadastroCarga.html';
+          }, 2000);
         } else {
           throw new Error("Erro ao cadastrar navio");
         }
