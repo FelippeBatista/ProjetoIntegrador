@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cadastro de Navio</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .form-container {
+      background-color: #fff;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      max-width: 600px;
+      width: 100%;
+    }
+
+    h2 {
+      text-align: center;
+      color: #1a3c6d;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    label {
+      font-weight: bold;
+      color: #333;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    input[type="text"],
+    input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #1a3c6d;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    button:hover {
+      background-color: #15305b;
+    }
+
+    .success-message,
+    .error-message {
+      margin-top: 20px;
+      text-align: center;
+      display: none;
+    }
+
+    .success-message {
+      color: green;
+    }
+
+    .error-message {
+      color: red;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <h2>Cadastro de Navio</h2>
+    <form id="navioForm">
+      <div class="form-group">
+        <label for="nome">Nome do Navio</label>
+        <input type="text" id="nome" required />
+      </div>
+
+      <div class="form-group">
+        <label for="bandeira">Bandeira</label>
+        <input type="text" id="bandeira" required />
+      </div>
+
+      <div class="form-group">
+        <label for="companhia">Companhia</label>
+        <input type="text" id="companhia" required />
+      </div>
+
+      <div class="form-group">
+        <label for="anoConstrucao">Ano de Construção</label>
+        <input type="number" id="anoConstrucao" required />
+      </div>
+
+      <div class="form-group">
+        <label for="comprimento">Comprimento (em metros)</label>
+        <input type="number" step="0.1" id="comprimento" required />
+      </div>
+
+      <div class="form-group">
+        <label for="largura">Largura (em metros)</label>
+        <input type="number" step="0.1" id="largura" required />
+      </div>
+
+      <div class="form-group">
+        <label for="capacidade">Capacidade (em toneladas)</label>
+        <input type="number" step="0.1" id="capacidade" required />
+      </div>
+
+      <div class="form-group">
+        <label for="tipo">Tipo</label>
+        <input type="text" id="tipo" required />
+      </div>
+
+      <button type="submit">Cadastrar Navio</button>
+      <p class="success-message" id="mensagemSucesso">Navio cadastrado com sucesso!</p>
+      <p class="error-message" id="mensagemErro">Erro ao cadastrar o navio.</p>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("navioForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const navio = {
+        nome: document.getElementById("nome").value,
+        bandeira: document.getElementById("bandeira").value,
+        companhia: document.getElementById("companhia").value,
+        anoConstrucao: parseInt(document.getElementById("anoConstrucao").value),
+        comprimento: parseFloat(document.getElementById("comprimento").value),
+        largura: parseFloat(document.getElementById("largura").value),
+        capacidade: parseFloat(document.getElementById("capacidade").value),
+        tipo: document.getElementById("tipo").value
+      };
+
+      fetch("http://localhost:8080/navios/", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(navio),
+      })
+      .then(response => {
+        if (response.ok) {
+          document.getElementById("mensagemSucesso").style.display = "block";
+          document.getElementById("mensagemErro").style.display = "none";
+          document.getElementById("navioForm").reset();
+        } else {
+          throw new Error("Erro ao cadastrar navio");
+        }
+      })
+      .catch(() => {
+        document.getElementById("mensagemErro").style.display = "block";
+        document.getElementById("mensagemSucesso").style.display = "none";
+      });
+    });
+  </script>
+
+</body>
+</html>
